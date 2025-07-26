@@ -7,7 +7,7 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-self["webpackHotUpdate_N_E"]("pages/user",{
+self["webpackHotUpdate_N_E"]("pages/admin/manage",{
 
 /***/ "(pages-dir-browser)/./utils/api.js":
 /*!**********************!*\
