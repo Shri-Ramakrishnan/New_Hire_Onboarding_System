@@ -1,5 +1,6 @@
-// Base URL from env or fallback to localhost
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://new-hire-onboarding-backend-1.onrender.com';
+// utils/api.js
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://new-hire-onboarding-backend-1.onrender.com/api';
 const API_URL = `${API_BASE_URL}/steps`;
 
 // ✅ Get all steps
