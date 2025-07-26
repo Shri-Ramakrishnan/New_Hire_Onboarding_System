@@ -1,5 +1,5 @@
 import { Auth } from '../utils/auth.js';
-import { deleteStep, updateStep } from '../utils/api.js'; // ✅ import backend functions
+import { deleteStep, updateStep } from '../utils/api.js'; 
 
 const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) => {
   const user = Auth.getCurrentUser();

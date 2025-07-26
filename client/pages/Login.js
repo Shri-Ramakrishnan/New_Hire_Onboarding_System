@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Auth } from "../../utils/auth.js"; // Adjust path as needed
+import { Auth } from "../../utils/auth.js"; 
 
 export default function Login() {
   const [formData, setFormData] = useState({

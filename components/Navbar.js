@@ -17,7 +17,6 @@ const Navbar = () => {
     }
   };
 
-  // Prevent hydration mismatch by not rendering until client-side
   if (!mounted) {
     return (
       <header className="header">

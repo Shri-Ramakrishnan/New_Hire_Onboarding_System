@@ -1,15 +1,13 @@
-// Authentication utilities for the onboarding app
 
 import { LocalStorage } from './localStorage.js';
 
-// Hardcoded users for demo purposes
 const DEMO_USERS = [
   { username: "admin", password: "admin123", role: "admin", name: "Admin User" },
   { username: "user", password: "user123", role: "user", name: "Shri Ram" }
 ];
 
 export const Auth = {
-  // Login function
+  
   login: (username, password) => {
     const user = DEMO_USERS.find(
       u => u.username === username && u.password === password
@@ -24,40 +22,33 @@ export const Auth = {
     return { success: false, error: "Invalid username or password" };
   },
 
-  // Logout function
   logout: () => {
     LocalStorage.removeUser();
     window.location.href = '/login';
   },
 
-  // Get current user
   getCurrentUser: () => {
     return LocalStorage.getUser();
   },
 
-  // Check if user is authenticated
   isAuthenticated: () => {
     const user = LocalStorage.getUser();
     return user !== null;
   },
 
-  // Check if user has specific role
   hasRole: (role) => {
     const user = LocalStorage.getUser();
     return user && user.role === role;
   },
 
-  // Check if user is admin
   isAdmin: () => {
     return Auth.hasRole('admin');
   },
 
-  // Check if user is regular user
   isUser: () => {
     return Auth.hasRole('user');
   },
 
-  // Get redirect path based on user role
   getRedirectPath: (user = null) => {
     const currentUser = user || Auth.getCurrentUser();
     if (!currentUser) return '/login';
@@ -72,11 +63,9 @@ export const Auth = {
     }
   },
 
-  // Initialize demo data (call this once to set up some sample steps)
   initializeDemoData: () => {
     const steps = LocalStorage.getSteps();
     
-    // Only initialize if no steps exist
     if (steps.length === 0) {
       const demoSteps = [
         {
@@ -118,7 +107,6 @@ export const Auth = {
     }
   },
 
-  // Get all users (for admin purposes)
   getAllUsers: () => {
     return DEMO_USERS.map(({ password, ...user }) => user);
   }

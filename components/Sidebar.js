@@ -13,7 +13,6 @@ const Sidebar = () => {
     setUser(Auth.getCurrentUser());
   }, []);
   
-  // Prevent hydration mismatch by not rendering until client-side
   if (!mounted || !user) {
     return (
       <aside className="sidebar">

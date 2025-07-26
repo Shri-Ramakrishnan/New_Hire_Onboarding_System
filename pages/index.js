@@ -20,13 +20,11 @@ export default function Home() {
       setIsChecking(false);
     };
 
-    // Only run on client side
     if (typeof window !== 'undefined') {
       checkAuthAndRedirect();
     }
   }, [router]);
 
-  // Show loading during redirect
   return (
     <div className="flex-center" style={{ height: '100vh' }}>
       <div>Loading...</div>

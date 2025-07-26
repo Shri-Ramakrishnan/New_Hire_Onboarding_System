@@ -11,32 +11,26 @@ const ProtectedRoute = ({ children, requireRole = null }) => {
     const checkAuth = () => {
       const user = Auth.getCurrentUser();
       
-      // If no user is logged in, redirect to login
       if (!user) {
         router.replace('/login');
         return;
       }
 
-      // If a specific role is required, check if user has it
       if (requireRole && user.role !== requireRole) {
-        // Redirect to appropriate dashboard based on user's actual role
         const redirectPath = Auth.getRedirectPath(user);
         router.replace(redirectPath);
         return;
       }
 
-      // User is authorized
       setIsAuthorized(true);
       setIsChecking(false);
     };
 
-    // Only run on client side
     if (typeof window !== 'undefined') {
       checkAuth();
     }
   }, [router, requireRole]);
 
-  // Show loading state during auth check
   if (isChecking) {
     return (
       <div className="flex-center" style={{ height: '100vh' }}>
@@ -45,7 +39,6 @@ const ProtectedRoute = ({ children, requireRole = null }) => {
     );
   }
 
-  // Don't render children if not authorized
   if (!isAuthorized) {
     return null;
   }

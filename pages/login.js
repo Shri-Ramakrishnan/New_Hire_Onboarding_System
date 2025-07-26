@@ -15,7 +15,6 @@ export default function Login() {
   useEffect(() => {
     setMounted(true);
     
-    // Check if already logged in (only on client side)
     if (typeof window !== 'undefined') {
       const user = Auth.getCurrentUser();
       if (user) {
@@ -40,10 +39,9 @@ export default function Login() {
     setError('');
 
     try {
-      const result = await Auth.login(formData.username, formData.password); // ✅ Awaited async login
+      const result = await Auth.login(formData.username, formData.password); 
       
       if (result.success) {
-        // Auth.initializeDemoData(); ❌ SKIPPED: no longer using demo data
         const redirectPath = Auth.getRedirectPath(result.user);
         router.replace(redirectPath);
       } else {

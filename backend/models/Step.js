@@ -1,4 +1,3 @@
-// backend/models/Step.js
 import mongoose from 'mongoose';
 
 const stepSchema = new mongoose.Schema({

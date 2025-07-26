@@ -3,10 +3,8 @@ import "./global.css";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// Components
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
-// Pages
 import Login from "./pages/Login.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminManage from "./pages/AdminManage.jsx";
@@ -14,10 +12,8 @@ import UserDashboard from "./pages/UserDashboard.jsx";
 import UserSteps from "./pages/UserSteps.jsx";
 import NotFound from "./pages/NotFound";
 
-// Utils
 import { Auth } from "./utils/auth.js";
 
-// Home redirect component
 const HomeRedirect = () => {
   const user = Auth.getCurrentUser();
 

@@ -3,7 +3,6 @@ import Step from '../models/Step.js';
 
 const router = express.Router();
 
-// ✅ Get all steps or steps for a specific user
 router.get('/', async (req, res) => {
   try {
     const { assignedTo } = req.query;
@@ -21,7 +20,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ Get completion stats for a specific user
 router.get('/stats/:username', async (req, res) => {
   try {
     const { username } = req.params;
@@ -39,7 +37,6 @@ router.get('/stats/:username', async (req, res) => {
   }
 });
 
-// ✅ Create a step
 router.post('/', async (req, res) => {
   try {
     const step = new Step(req.body);
@@ -51,7 +48,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Update a step
 router.put('/:id', async (req, res) => {
   try {
     const step = await Step.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -62,7 +58,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ✅ Delete a step
 router.delete('/:id', async (req, res) => {
   try {
     await Step.findByIdAndDelete(req.params.id);
@@ -73,7 +68,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// ✅ NEW: Complete a step
 router.patch('/:id/complete', async (req, res) => {
   try {
     const step = await Step.findById(req.params.id);

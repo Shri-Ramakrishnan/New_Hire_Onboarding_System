@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import StepCard from '../components/StepCard.jsx';
 import { Auth } from '../utils/auth.js';
-import * as api from '../utils/api.js'; // ✅ use your backend API functions
+import * as api from '../utils/api.js'; 
 
 const UserSteps = () => {
   const [userSteps, setUserSteps] = useState([]);

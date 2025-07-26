@@ -1,4 +1,3 @@
-// pages/404.js
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 

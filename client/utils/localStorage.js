@@ -1,7 +1,5 @@
-// localStorage utility functions for the onboarding app
 
 export const LocalStorage = {
-  // User management
   setUser: (user) => {
     try {
       localStorage.setItem('currentUser', JSON.stringify(user));
@@ -32,7 +30,6 @@ export const LocalStorage = {
     }
   },
 
-  // Onboarding steps management
   setSteps: (steps) => {
     try {
       localStorage.setItem('onboardingSteps', JSON.stringify(steps));
@@ -103,7 +100,6 @@ export const LocalStorage = {
     }
   },
 
-  // Get steps for a specific user
   getStepsForUser: (username) => {
     try {
       const allSteps = LocalStorage.getSteps();
@@ -114,12 +110,10 @@ export const LocalStorage = {
     }
   },
 
-  // Mark step as completed
   completeStep: (stepId) => {
     return LocalStorage.updateStep(stepId, { completed: true, completedAt: new Date().toISOString() });
   },
 
-  // Get completion statistics
   getCompletionStats: (username = null) => {
     try {
       const steps = username ? LocalStorage.getStepsForUser(username) : LocalStorage.getSteps();
@@ -138,7 +132,6 @@ export const LocalStorage = {
     }
   },
 
-  // Clear all data (for testing/reset)
   clearAll: () => {
     try {
       localStorage.removeItem('currentUser');

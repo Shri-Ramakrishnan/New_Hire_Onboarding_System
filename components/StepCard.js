@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Auth } from '../utils/auth';
-import * as API from '../utils/api.js'; // All backend calls
+import * as API from '../utils/api.js'; 
 
 const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) => {
   const [user, setUser] = useState(null);
@@ -16,7 +16,7 @@ const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) =
   const handleComplete = async () => {
     if (user && user.role === 'user' && step.assignedTo === user.username && !step.completed) {
       try {
-        const updatedStep = await API.completeStep(step._id); // backend call
+        const updatedStep = await API.completeStep(step._id); 
         if (updatedStep && onUpdate) {
           onUpdate(updatedStep);
         }
@@ -30,7 +30,7 @@ const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) =
   const handleDelete = async () => {
     if (user && user.role === 'admin' && window.confirm('Are you sure you want to delete this step?')) {
       try {
-        await API.deleteStep(step._id); // use backend delete
+        await API.deleteStep(step._id); 
         if (onUpdate) {
           onUpdate(null, 'deleted');
         }

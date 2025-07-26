@@ -1,10 +1,8 @@
 import * as React from "react";
 
-// Constants
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
-// Toast Action Types
 const actionTypes = {
   ADD_TOAST: "ADD_TOAST",
   UPDATE_TOAST: "UPDATE_TOAST",
@@ -12,17 +10,14 @@ const actionTypes = {
   REMOVE_TOAST: "REMOVE_TOAST",
 };
 
-// ID generator
 let count = 0;
 function genId() {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
 }
 
-// Toast timeout map
 const toastTimeouts = new Map();
 
-// Remove toast after delay
 const addToRemoveQueue = (toastId) => {
   if (toastTimeouts.has(toastId)) return;
 
@@ -37,7 +32,6 @@ const addToRemoveQueue = (toastId) => {
   toastTimeouts.set(toastId, timeout);
 };
 
-// Reducer
 export const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_TOAST":
@@ -89,7 +83,6 @@ export const reducer = (state, action) => {
   }
 };
 
-// Store and listeners
 const listeners = [];
 let memoryState = { toasts: [] };
 
@@ -100,7 +93,6 @@ function dispatch(action) {
   });
 }
 
-// Toast trigger function
 function toast(props) {
   const id = genId();
 
@@ -131,7 +123,6 @@ function toast(props) {
   };
 }
 
-// Hook for consuming toast state
 function useToast() {
   const [state, setState] = React.useState(memoryState);
 

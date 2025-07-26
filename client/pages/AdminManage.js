@@ -9,7 +9,7 @@ import {
   addStep,
   updateStep,
   deleteStep
-} from '../utils/api.js'; // 🆕 import backend API
+} from '../utils/api.js'; 
 
 const AdminManage = () => {
   const [steps, setSteps] = useState([]);
