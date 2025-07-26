@@ -1,0 +1,73 @@
+// Base URL from env or fallback to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+const API_URL = `${API_BASE_URL}/steps`;
+
+// ✅ Get all steps
+export const fetchSteps = async () => {
+  const res = await fetch(API_URL);
+  if (!res.ok) throw new Error('Failed to fetch steps');
+  return res.json();
+};
+
+// ✅ Get steps for a specific user
+export const getStepsForUser = async (username) => {
+  const res = await fetch(`${API_URL}?assignedTo=${encodeURIComponent(username)}`);
+  if (!res.ok) throw new Error('Failed to fetch steps for user');
+  return res.json();
+};
+
+// ✅ Add a new step
+export const addStep = async (step) => {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(step),
+  });
+  if (!res.ok) throw new Error('Failed to add step');
+  return res.json();
+};
+
+// ✅ Update a step
+export const updateStep = async (id, updates) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  });
+  if (!res.ok) throw new Error('Failed to update step');
+  return res.json();
+};
+
+// ✅ Delete a step
+export const deleteStep = async (id) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) throw new Error('Failed to delete step');
+  return res.json();
+};
+
+// ✅ Mark step as completed
+export const completeStep = async (id) => {
+  const res = await fetch(`${API_URL}/${id}/complete`, {
+    method: 'PATCH',
+  });
+  if (!res.ok) throw new Error('Failed to complete step');
+  return res.json();
+};
+
+// ✅ Frontend-only completion stats calculator
+export const calculateCompletionStats = (steps) => {
+  const total = steps.length;
+  const completed = steps.filter((s) => s.completed).length;
+  const pending = total - completed;
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  return { total, completed, pending, percentage };
+};
+
+// ✅ Optional: Fetch backend-calculated stats
+export const getUserCompletionStats = async (username) => {
+  const res = await fetch(`${API_URL}/stats/${encodeURIComponent(username)}`);
+  if (!res.ok) throw new Error('Failed to fetch user stats');
+  return res.json();
+};
