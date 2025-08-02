@@ -28,13 +28,13 @@ const HomeRedirect = () => {
 const App = () => (
   <BrowserRouter>
     <Routes>
-      {/* Home route - redirects based on auth status */}
+      {}
       <Route path="/" element={<HomeRedirect />} />
 
-      {/* Login route */}
+      {}
       <Route path="/login" element={<Login />} />
 
-      {/* Admin routes */}
+      {}
       <Route 
         path="/admin" 
         element={
@@ -52,7 +52,7 @@ const App = () => (
         } 
       />
 
-      {/* User routes */}
+      {}
       <Route 
         path="/user" 
         element={
@@ -70,7 +70,7 @@ const App = () => (
         } 
       />
 
-      {/* Catch-all route */}
+      {}
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>

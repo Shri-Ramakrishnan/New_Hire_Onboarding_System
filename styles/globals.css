@@ -89,7 +89,6 @@ body {
   gap: 16px;
 }
 
-/* Sidebar Component */
 .sidebar {
   width: 250px;
   background: white;
@@ -140,7 +139,6 @@ body {
   border-left: 3px solid #3182ce;
 }
 
-/* Button Components */
 .button {
   display: inline-flex;
   align-items: center;
@@ -199,7 +197,6 @@ body {
   font-size: 0.875rem;
 }
 
-/* Input Components */
 .input-group {
   margin-bottom: 20px;
 }
@@ -232,7 +229,6 @@ body {
   min-height: 100px;
 }
 
-/* Form Components */
 .form {
   max-width: 400px;
   margin: 0 auto;
@@ -242,22 +238,7 @@ body {
   max-width: 600px;
 }
 
-/* Progress Components */
-.progress-bar {
-  background: #e2e8f0;
-  border-radius: 8px;
-  height: 12px;
-  overflow: hidden;
-  margin: 16px 0;
-}
 
-.progress-fill {
-  background: #38a169;
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-/* Step Card Component */
 .step-card {
   background: white;
   border: 1px solid #e1e5e9;
@@ -265,6 +246,22 @@ body {
   padding: 20px;
   margin-bottom: 16px;
   transition: all 0.2s;
+}
+.blue-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.blue-button:hover {
+  background-color: #0056b3;
 }
 
 .step-card:hover {
@@ -313,7 +310,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* Auth Pages */
 .auth-container {
   min-height: 100vh;
   display: flex;
@@ -347,7 +343,6 @@ body {
   color: #718096;
 }
 
-/* Dashboard Components */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -375,7 +370,6 @@ body {
   font-size: 0.95rem;
 }
 
-/* User Info Component */
 .user-info {
   display: flex;
   align-items: center;
@@ -395,7 +389,6 @@ body {
   font-weight: bold;
 }
 
-/* Utility Classes */
 .text-center {
   text-align: center;
 }
@@ -452,7 +445,6 @@ body {
   margin-top: 4px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);

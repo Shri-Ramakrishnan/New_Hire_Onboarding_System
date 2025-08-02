@@ -1,5 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://new-hire-onboarding-backend-1.onrender.com';
-const API_URL = `${API_BASE_URL}`;
+const API_URL = '/api';
 
 export const fetchSteps = async () => {
   const res = await fetch(`${API_URL}/steps`);
@@ -17,7 +16,7 @@ export const addStep = async (step) => {
   const res = await fetch(`${API_URL}/steps`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(step),
+    body: JSON.stringify(step)
   });
   if (!res.ok) throw new Error('Failed to add step');
   return res.json();
@@ -27,7 +26,7 @@ export const updateStep = async (id, updates) => {
   const res = await fetch(`${API_URL}/steps/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updates),
+    body: JSON.stringify(updates)
   });
   if (!res.ok) throw new Error('Failed to update step');
   return res.json();
@@ -35,7 +34,7 @@ export const updateStep = async (id, updates) => {
 
 export const deleteStep = async (id) => {
   const res = await fetch(`${API_URL}/steps/${id}`, {
-    method: 'DELETE',
+    method: 'DELETE'
   });
   if (!res.ok) throw new Error('Failed to delete step');
   return res.json();
@@ -43,7 +42,7 @@ export const deleteStep = async (id) => {
 
 export const completeStep = async (id) => {
   const res = await fetch(`${API_URL}/steps/${id}/complete`, {
-    method: 'PATCH',
+    method: 'PATCH'
   });
   if (!res.ok) throw new Error('Failed to complete step');
   return res.json();
@@ -51,9 +50,9 @@ export const completeStep = async (id) => {
 
 export const calculateCompletionStats = (steps) => {
   const total = steps.length;
-  const completed = steps.filter((s) => s.completed).length;
+  const completed = steps.filter((s) => s.completed || s.status === 'Completed').length;
   const pending = total - completed;
-  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
   return { total, completed, pending, percentage };
 };
 

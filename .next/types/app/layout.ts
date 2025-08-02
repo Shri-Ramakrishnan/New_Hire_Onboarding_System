@@ -1,4 +1,4 @@
-// File: C:\Users\kakas\Documents\Visual Studio Code\3rd yr internship\new-hire-onboarding\app\layout.js
+// File: C:\Users\kakas\Documents\Visual Studio Code\new-hire-onboarding\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

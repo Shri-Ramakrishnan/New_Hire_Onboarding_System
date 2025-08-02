@@ -3,6 +3,7 @@ import { fetchSteps, updateStep } from '../utils/api';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import StepCard from '../components/StepCard';
+import ProgressBar from '../components/ProgressBar'; 
 import { Auth } from '../utils/auth';
 
 export default function UserDashboard() {
@@ -45,13 +46,21 @@ export default function UserDashboard() {
             <p className="card-description">Track your onboarding progress and complete pending steps</p>
           </div>
 
-          <div className="dashboard-grid">
-            <div className="stats-card"><div className="stats-value">{total}</div><div className="stats-label">Total Steps</div></div>
-            <div className="stats-card"><div className="stats-value">{completed}</div><div className="stats-label">Completed Steps</div></div>
-            <div className="stats-card"><div className="stats-value">{pending}</div><div className="stats-label">Pending Steps</div></div>
-            <div className="stats-card"><div className="stats-value">{percentage}%</div><div className="stats-label">Completion Rate</div></div>
+          {}
+          <div style={{ marginBottom: '20px' }}>
+            <h3>Progress: {completed}/{total} steps ({percentage}%)</h3>
+            <ProgressBar percentage={percentage} />
           </div>
 
+          {}
+          <div className="dashboard-grid">
+            <div className="stats-card">
+              <div className="stats-value">{total}</div>
+              <div className="stats-label">Total Steps</div>
+            </div>
+          </div>
+
+           {}
           <div className="card">
             <div className="card-header">
               <h2 className="card-title">Recent Steps</h2>

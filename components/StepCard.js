@@ -1,120 +1,91 @@
-import { useState, useEffect } from 'react';
-import { Auth } from '../utils/auth';
-import * as API from '../utils/api.js'; 
+import { Auth } from '../utils/auth.js';
+import { deleteStep, updateStep } from '../utils/api.js';
 
 const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) => {
-  const [user, setUser] = useState(null);
-  const [mounted, setMounted] = useState(false);
+  const user = Auth.getCurrentUser();
 
-  useEffect(() => {
-    setMounted(true);
-    if (typeof window !== 'undefined') {
-      setUser(Auth.getCurrentUser());
-    }
-  }, []);
+  const isCompleted = step.completed;
+  const canComplete =
+    user && user.role === 'user' && step.assignedTo === user.username && !isCompleted;
+  const canEdit = user && user.role === 'admin';
 
   const handleComplete = async () => {
-    if (user && user.role === 'user' && step.assignedTo === user.username && !step.completed) {
-      try {
-        const updatedStep = await API.completeStep(step._id); 
-        if (updatedStep && onUpdate) {
-          onUpdate(updatedStep);
-        }
-      } catch (error) {
-        console.error('Failed to complete step:', error);
-        alert('Could not mark as complete');
+    if (!canComplete) return;
+    try {
+      const updatedStep = await updateStep(step._id, {
+        completed: true,
+        completedAt: new Date()
+      });
+      if (updatedStep && onUpdate) {
+        onUpdate(updatedStep);
       }
+    } catch (err) {
+      console.error('❌ Error marking step complete:', err);
     }
   };
 
   const handleDelete = async () => {
-    if (user && user.role === 'admin' && window.confirm('Are you sure you want to delete this step?')) {
-      try {
-        await API.deleteStep(step._id); 
-        if (onUpdate) {
-          onUpdate(null, 'deleted');
-        }
-      } catch (err) {
-        console.error('Failed to delete step:', err);
-        alert('Failed to delete step');
+    if (!canEdit) return;
+    const confirmed = window.confirm('Are you sure you want to delete this step?');
+    if (!confirmed) return;
+
+    try {
+      await deleteStep(step._id);
+      if (onUpdate) {
+        onUpdate(null, 'deleted');
       }
+    } catch (err) {
+      console.error('❌ Error deleting step:', err);
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString();
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString();
   };
 
-  if (!mounted) {
-    return (
-      <div className={`step-card ${step.completed ? 'completed' : ''}`}>
-        <div className="step-header">
-          <div>
-            <h3 className="step-title">{step.title}</h3>
-            {isAdminView && (
-              <div style={{ fontSize: '0.875rem', color: '#718096', marginBottom: '4px' }}>
-                Assigned to: <strong>{step.assignedTo}</strong>
-              </div>
-            )}
-            {step.createdAt && (
-              <div style={{ fontSize: '0.875rem', color: '#718096' }}>
-                Created: {formatDate(step.createdAt)}
-              </div>
-            )}
-            {step.completedAt && (
-              <div style={{ fontSize: '0.875rem', color: '#38a169' }}>
-                Completed: {formatDate(step.completedAt)}
-              </div>
-            )}
-          </div>
-          <span className={`step-status ${step.completed ? 'completed' : 'pending'}`}>
-            {step.completed ? 'Completed' : 'Pending'}
-          </span>
-        </div>
-        <p className="step-description">{step.description}</p>
-      </div>
-    );
-  }
-
-  const isCompleted = step.completed;
-  const canComplete = user && user.role === 'user' && step.assignedTo === user.username && !isCompleted;
-  const canEdit = user && user.role === 'admin';
-
   return (
-    <div className={`step-card ${isCompleted ? 'completed' : ''}`}>
-      <div className="step-header">
+    <div className={`step-card ${isCompleted ? 'completed' : ''} border rounded p-4 mb-4 shadow`}>
+      <div className="step-header flex justify-between items-start mb-2">
         <div>
-          <h3 className="step-title">{step.title}</h3>
+          <h3 className="step-title text-xl font-semibold">{step.title}</h3>
+
           {isAdminView && (
-            <div style={{ fontSize: '0.875rem', color: '#718096', marginBottom: '4px' }}>
+            <div className="text-sm text-gray-500 mb-1">
               Assigned to: <strong>{step.assignedTo}</strong>
             </div>
           )}
+
           {step.createdAt && (
-            <div style={{ fontSize: '0.875rem', color: '#718096' }}>
+            <div className="text-sm text-gray-500">
               Created: {formatDate(step.createdAt)}
             </div>
           )}
+
           {step.completedAt && (
-            <div style={{ fontSize: '0.875rem', color: '#38a169' }}>
+            <div className="text-sm text-green-600">
               Completed: {formatDate(step.completedAt)}
             </div>
           )}
         </div>
-        <span className={`step-status ${isCompleted ? 'completed' : 'pending'}`}>
-          {isCompleted ? 'Completed' : 'Pending'}
+
+        <span
+          className={`step-status px-3 py-1 rounded text-sm font-medium ${
+            isCompleted ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+          }`}
+        >
+          {isCompleted ? '✅ Completed' : '🕒 Pending'}
         </span>
       </div>
 
-      <p className="step-description">{step.description}</p>
+      <p className="step-description text-gray-700 mb-3">{step.description}</p>
 
       {showActions && (
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {canComplete && (
             <button
               onClick={handleComplete}
-              className="button button-success button-small"
+              className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
             >
               ✅ Mark Complete
             </button>
@@ -123,7 +94,7 @@ const StepCard = ({ step, onUpdate, showActions = true, isAdminView = false }) =
           {canEdit && (
             <button
               onClick={handleDelete}
-              className="button button-danger button-small"
+              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
             >
               🗑️ Delete
             </button>
