@@ -8,28 +8,19 @@ A complete full-stack web application to manage the onboarding process of new em
 
 🔗 [Click here to use the app](https://new-hire-onboarding.vercel.app/login)
 
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: React.js (Next.js)
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Hosting**: Vercel
 
 ---
 
-## 📂 Folder Structure
+---
 
-- `client/` – Frontend components and pages
-- `server/` – Backend API and routes
-- `shared/` – Shared utilities and constants
-- `public/` – Static assets
+## ✅ Features
+
+- New Hire Registration & Login
+- Multi-step Onboarding Checklist
+- Admin Dashboard
+- Status Tracking
+- Secure Authentication
 
 ---
 
-## 👨‍🏫 Developed By
 
-SHRI RAMAKRISHNAN A  
-Department of Computer Science and Engineering  
-Sri Eshwar College of Engineering
