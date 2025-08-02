@@ -1,1 +1,1 @@
-https://new-hire-onboarding.vercel.app/login
+https://new-hire-onboarding.vercel.app
